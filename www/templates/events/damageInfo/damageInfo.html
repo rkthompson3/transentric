@@ -1,0 +1,65 @@
+<script type="text/template" id="damageInfo">
+<div data-role="header" id="header" >
+	   <!-- <a class="backDamage headerButton" data-mini="true"  data-backbtn="false" >PREV</a>-->
+        <h1 id="headertext"></h1>
+        <a id="help" data-mini="true" class="headerButton ui-btn-right" >Help</a>
+</div>
+<div data-role="content" id="content" >
+<p id="msg"></p>
+		 
+    <figure>
+		 <div class="container imageClick">
+         <center><img class="default"  id="camera_image" src="" name="camera_image"></center>
+		 </div>
+         <figcaption id="CurrentdamagePage" class="figcationCss">Left Front</figcaption>
+    </figure>
+	<div>
+		<ul data-role="listview" data-inset="true" data-theme="h">
+			<li class="reports" value="indicator">Location*
+				<div  class="fields" >
+					<select name="location" id="location" data-mini="true" data-theme="g">
+					<option value="">Select</option>
+					</select>
+				</div>
+			</li>
+			<li class="reports" value="indicator">Type*
+				<div  class="fields" >
+					<select name="type" id="type" data-mini="true" data-theme="g">
+						<option value="">Select</option>
+					</select>
+				</div>
+			</li>
+			<li class="reports" value="indicator">Severity*
+				<div  class="fields" >
+					<select name="severity" id="severity" data-mini="true" data-theme="g">
+						<option value="">Select</option>
+					</select>
+				</div>
+			</li>
+		</ul>
+	</div>
+	
+    <textarea name="textarea" placeholder="Other Information" rows="5" cols="60" style="resize: none; height: 50px; max-height: 50px;" data-theme="g" id="inspectiondetails"></textarea>
+ 
+	<div align="center" >
+		<a id="send"    data-role="button" data-theme="g" data-mbc-theme="custom" data-inline="true" data-mini="ture" >Send</a>
+		<a id="next"    data-role="button" data-theme="g" data-mbc-theme="custom" data-inline="true" data-mini="ture" >Next</a>
+		<a id="cancel"    data-role="button" data-theme="g" data-mbc-theme="custom" data-inline="true" data-mini="ture" >Cancel</a>
+	</div>
+	
+	<div data-role="popup" id="scannerhelptext"  class="ui-corner-all" data-transition="pop">
+				<a href="#" data-rel="back" data-role="button" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>			
+				  <h2 align="center" style="width: 93%; font-size:14px;">Help</h2>
+				  	 <div class="popupstyle">    
+            			Walk around the vehicle and photograph it from each corner and note any damages you find.</br>  
+            			You can report multiple damages at a single corner by pressing the Send button after each reporting.</br>  
+            			When you are through reporting at the corner then press the Next button you will move on to the next reporting for the vehicle.
+		           	 </div>
+				
+    </div>
+</div>
+</script>
+<script type="text/template" id="details">
+   
+</script>
+

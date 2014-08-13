@@ -1,0 +1,53 @@
+<script type="text/template" id="summary">
+<div data-role="content" id="content" >
+             <p id="msg"></p>
+					<div class="left">Order Number :</div>
+				    <div class="right"><%=user.get('id')%></div>
+            <% if(user.get("norequiredevent") == true){%>
+             <div align="center"><a id="nextEvent" name="nextEvent" data-theme="g" data-mbc-theme="custom" data-role="button" data-inline="true" data-icon="arrow-r" data-iconpos="right">Next Required Event</a></div>  
+            <%}%>
+             <ul data-role="listview" data-inset="true" data-theme="h">
+				<%var totalobj=user.get('data');%>
+ 				<%_.each(user.get('data').stops,function(val,index){%>
+             	       <li  id="addedDetailsData" value='<%= index %>' <%if (user.get("requiredeventIndexCount") <= index){%> class="ui-disabled" <%}%> ><a >
+             	       <span id="sub">Stop: <%=val.stopSequence%></span>
+					  	<h4 id="split"><%if(val.address.contactInfo.name!=null){%><%=val.address.contactInfo.name%></br><%}%>
+						<%_.each(val.address,function(x,index1){%>
+                        <%if(val.address[index1]!=val.address.contactInfo && val.address[index1]!=null){%>
+					           <%if(index1=="city"){%>
+									<%=val.address[index1]%>,
+								<%}else if(index1=="state" || index1=="zip"){%>
+									<%=val.address[index1]%>
+								<%}else if(index1=="countryCode"){%>
+                                  <br><%=val.address[index1]%>
+								<%}else {%>
+                                  <%=val.address[index1]%><br>
+								<%}%>
+						 <%}%>		
+						<%});%></h4>
+						<%if(val.arrivarDateTime!=null || val.departureDateTime!=null ){%><span id="sub">Appointment:</span><span id="subdetails"><%=val.arrivalDateTime%> - <%=val.departureDateTime%></span></br><%}%>
+						<span id="sub">Note:</span><span id="subdetails" ><%if(val.notes!=null){%><%=val.notes%><%}%></span></br>
+						
+             	     </a></li>
+             	<%});%>
+				<li   >
+					<span id="sub" >Container :</span><span id="subdetails"><%if(totalobj.eqmtDetails.length>0){if(totalobj.eqmtDetails[0].eqmtInitial!= null && totalobj.eqmtDetails[0].eqmtNumber!= null){%><%=totalobj.eqmtDetails[0].eqmtInitial%> <%=totalobj.eqmtDetails[0].eqmtNumber%><%}}%></span></br>
+					<span id="sub" >Pickup Number:</span><span id="subdetails" ><%if(totalobj.references.length>0){%><%_.each(totalobj.references,function(x,index){%><%if(x.referenceCode =="P8"){%><%=x.referenceValue%><%}});}%></span></br>
+					<%if(totalobj.parties.length>0){%><%_.each(totalobj.parties,function(x,index){%><%if(x.partyIdentifier =="UC"){%><%if(x.city !=totalobj.stops[1].address.city){%><span id="sub">Ultimate Destination:</span><span id="subdetails" ><%=x.city%> , <%=x.state%><%}}});}%>
+					</span></br>
+				</li>
+             	</ul>
+				<div data-role="collapsible" data-mini="true"  data-theme="g" class="custom-collapsible" data-content-theme="a" data-collapsed-icon="arrow-d" data-iconpos="right" data-expanded-icon="arrow-u">
+ 					  <h2>NOTES</h2>
+   					  <%if(totalobj.notes!=null){%><%=totalobj.notes%><%}%>
+				</div>
+				<div data-role="collapsible" data-mini="true"  data-theme="g" class="custom-collapsible" data-content-theme="a" data-collapsed-icon="arrow-d" data-iconpos="right" data-expanded-icon="arrow-u">
+ 					  <h2>REFERENCES</h2>
+					  <%if(totalobj.references.length>0){%><%_.each(totalobj.references,function(x,index){%><%=x.referenceDesc%> <b> : </b><%=x.referenceValue%><br><%});%><%}%>
+				</div>
+					
+ </div>
+</script>
+<script type="text/template" id="details">
+
+</script>

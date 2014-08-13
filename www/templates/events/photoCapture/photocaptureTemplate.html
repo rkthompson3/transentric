@@ -1,0 +1,25 @@
+<script type="text/template" id="photocapture">
+<div data-role="header" id="header" >
+	    <a  class="photoback headerButton" data-mini="true"  data-backbtn="false" >PREV</a>
+        <h1 id="headertext"></h1>
+        <a href="#home" data-mini="true" class="headerButton" >HOME</a>
+   
+</div>
+<div data-role="content" id="content">
+		<div>
+					<div class="left">Order Number :</div>
+				    <div class="right"><%=user.get('id')%></div>
+		</div>
+				<ul id="Gallery" class="gallery">
+			<%for (var i=0;i<user.get('count');i++){%>
+				<li><img style="width:70px; height:60px;" class="imageClick default"  id="camera_image<%=i%>" src="" name="<%=i%>"></li>
+			<%}%>
+				</ul>
+		<div align="center" >
+					<a id="removeall"    data-role="button" data-theme="g" data-mbc-theme="custom" data-inline="true" data-mini="ture" >Remove All</a>
+					<a id="ok"    data-role="button" data-theme="g" data-mbc-theme="custom" data-inline="true" data-mini="ture" >Ok</a>
+		</div>
+    </div>
+</script>
+<script type="text/template" id="">
+</script>

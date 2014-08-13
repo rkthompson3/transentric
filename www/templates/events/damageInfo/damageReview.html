@@ -1,0 +1,75 @@
+<script type="text/template" id="damageReview">
+<div data-role="header" id="header" >
+	    <!--<a class="backtoDash headerButton" data-mini="true"  data-backbtn="false" >PREV</a>-->
+        <h1 id="headertext"></h1>
+        <a id="help" data-mini="true" class="headerButton ui-btn-right" >Help</a>
+</div>
+<div data-role="content" id="content" >
+	<% var allreporteddamagesData=user.get("allreporteddamages");%>
+	<p id="msg"></p>
+	<% 
+	if(allreporteddamagesData.length > 0){
+	for(var i in allreporteddamagesData){%>
+	<div data-role="collapsible" data-mini="true"  data-theme="g" class="custom-collapsible" data-content-theme="a" data-collapsed-icon="arrow-d" data-iconpos="right" data-expanded-icon="arrow-u">
+ 					  <h2><%=allreporteddamagesData[i].vinNumber%></h2>
+ 					   <% if(allreporteddamagesData[i].damageDetails.length > 0){
+ 					  	for(var item in allreporteddamagesData[i].damageDetails){
+ 					  	%>
+ 					  <span id="detailstitle">Damage Area:</span id="details"><%=allreporteddamagesData[i].damageDetails[item].damageAreaCodeName%></br>
+ 					  <span id="detailstitle">Damage Type:</span id="details"><%=allreporteddamagesData[i].damageDetails[item].damageTypeCodeName%></br>
+ 					  <span id="detailstitle">Damage Severity:</span id="details"><%=allreporteddamagesData[i].damageDetails[item].damageSeverityCodeName%></span>
+ 					  <span style="padding-bottom:3px;"><hr>
+ 					  <%}}else{%>
+ 					  <span>No Damages</span>
+ 					  <%}%>		
+	</div>
+	<%}}else{%>
+			<div data-role="collapsible" data-mini="true"  data-theme="g" class="custom-collapsible" data-content-theme="a" data-collapsed-icon="arrow-d" data-iconpos="right" data-expanded-icon="arrow-u">
+			<h2>Reported Damages</h2>
+			<span>No Damages</span>
+			</div>
+		<%}%>
+		<p class="reports">Driver Signature:</p>
+		<div id="driverSignContainer">
+		<form method="POST">
+          	<div data-mbc-role="signature" id="signaturecontainer" name="signature" />
+       </form></div>
+        <div align="center" style="display:none;" id="output"><img id="driversignature" src=""/></div>	 
+		<ul data-role="listview" data-inset="true" data-theme="h">
+			<li class="reports" value="indicator">Reason
+				<div  class="fields" >
+					<select name="type" id="driverreason" data-mini="true" data-theme="g">
+						<option value="">Select</option>
+						<option value="Unable to sign">Unable to sign</option>
+						<option value="Refused to sign">Refused to sign</option>
+						<option value="Unavailable to sign">Unavailable to sign</option>
+						<option value="After hours drop">After hours drop</option>
+					</select>
+				</div>
+			</li>
+		</ul>
+	
+	<textarea name="textarea"  placeholder="Other Information." rows="5" cols="60" style="resize: none; height:50px; max-height:50px;" data-theme="g" id="driverotherinfo"></textarea>
+ 	
+ 	<p id="note">The next page contains the place for Shipper/Consignee to sign</p>
+	
+	<div align="center" >
+		<a id="next"  data-role="button" data-theme="g" data-mbc-theme="custom" data-inline="true">Next</a>
+		<a id="cancel"    data-role="button" data-theme="g" data-mbc-theme="custom" data-inline="true">Cancel</a>
+	</div>
+	
+	<div data-role="popup" id="scannerhelptext"  class="ui-corner-all" data-transition="pop">
+				<a href="#" data-rel="back" data-role="button" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>			
+				  <h2 align="center" style="width: 93%; font-size:14px;">Help</h2>
+				  	 <div class="popupstyle">    
+            			Review the damages that have been recorded against this vehicle (press the #VIN button at the top screen).</br>
+            			Then sign or record your reason for not signing the reporting.
+		           	 </div>
+				
+    </div>
+</div>
+</script>
+<script type="text/template" id="details">
+   
+</script>
+

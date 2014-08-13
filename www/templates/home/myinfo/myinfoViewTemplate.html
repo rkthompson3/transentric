@@ -1,0 +1,57 @@
+<script type="text/template" id="myinfo">
+<div data-role="content" data-theme="g">
+			 <p id="msg"></p>
+             <div><form name="myinfo" id="userinfo">
+				<%var obj=user.get('myinfo');%>
+				<%var mobileNumber = (obj.mobile).replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3');%>
+				 <div data-role="fieldcontain"><label for="firstName">First Name:</label><input type="text" data-mbc-required="true" id="firstName" name="firstName"  data-theme="h" value="<%=obj.firstName%>"></div>
+            	 <div data-role="fieldcontain"><label for="lastName">Last Name:</label><input  type="text" data-mbc-required="true" name="lastName" id="lastName" data-theme="h"  value="<%=obj.lastName%>"></div>
+            	 <div data-role="fieldcontain"> <label for="email">E-Mail:</label><input data-mbc-required="true" placeholder="" data-mbc-format='email' type="text" name="email" id="email" data-theme="h"  value="<%=obj.email%>"></div>
+           		 <div data-role="fieldcontain"><label for="mobile">Mobile Phone:</label><input data-mbc-required="true" placeholder="123-456-7890" data-mbc-format='phone' type="text"  id="mobile"  name="mobile" data-theme="h" value="<%=mobileNumber%>"></div>
+				 <div data-role="fieldcontain"><label for="mobileServiceProvider">Cell Carrier :</label><select name="mobileServiceProvider" id="mobileServiceProvider"  data-mini="true" data-mbc-required="true">
+							<option value=""></option>
+							<option value="att">AT&T</option>
+							<option value="tmobile">T-Mobile</option>
+							<option value="verizon">Verizon</option>
+							<option value="sprint">Sprint</option>
+							<option value="other">Other</option>
+  				 </select></div>
+				 <div data-role="fieldcontain"><label for="licenseNumber">Drivers Lic:</label><input  type="text" data-mbc-required="true" id="licenseNumber"  data-theme="e" name="licenseNumber" value="<%=obj.licenseNumber%>"></div>
+          		<div ><a style="float:felt;" href="#home" id="btnCancel"  data-role="button" data-transition="slide" data-inline="true"  >CANCEL</a><a style="float:right;" id="btnSave" class="actionBtn" data-role="button" data-transition="slide" data-inline="true"  >SAVE</a></div>
+			</div>
+			</form></div>
+			
+				
+		        
+				
+
+</div>
+</script>
+<script type="text/template" id="myinfoadmin">
+<div data-role="content" data-theme="g">
+			 <p id="msg"></p>
+             <div><form name="myinfo" id="userinfo">
+				<%var obj=user.get('myinfo');%>
+				<%var mobileNumber = (obj.mobile).replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3');%>
+				 <div data-role="fieldcontain"><label for="firstName">First Name:</label><input type="text" data-mbc-required="true" id="firstName" name="firstName"  data-theme="h" value="<%=obj.firstName%>"></div>
+            	 <div data-role="fieldcontain"><label for="lastName">Last Name:</label><input  type="text" data-mbc-required="true" name="lastName" id="lastName" data-theme="h" value="<%=obj.lastName%>"></div>
+            	 <div data-role="fieldcontain"><label for="email">E-Mail:</label><input data-mbc-required="true" placeholder="" data-mbc-format='email' type="text" name="email" id="email" data-theme="h" value="<%=obj.email%>"></div>
+           		 <div data-role="fieldcontain"><label for="mobile">Mobile Phone:</label><input data-mbc-required="true" placeholder="123-456-7890" data-mbc-format='phone' type="text" id="mobile"  name="mobile" data-theme="h" value="<%=mobileNumber%>"></div>
+ 				 <div data-role="fieldcontain"><label for="mobileServiceProvider">Cell Carrier :</label><select name="mobileServiceProvider" id="mobileServiceProvider"  data-mini="true" data-mbc-required="true">
+							<option value=""></option>
+							<option value="att">AT&T</option>
+							<option value="tmobile">T-Mobile</option>
+							<option value="verizon">Verizon</option>
+							<option value="sprint">Sprint</option>
+							<option value="other">Other</option>
+  				 </select></div>
+				<div ><a style="float:left;" href="#home" id="btnCancel"  data-role="button" data-transition="slide" data-inline="true"  >CANCEL</a><a style="float:right;" id="btnSave" type="submit" class="actionBtn" data-role="button" data-transition="slide" data-inline="true"  >SAVE</a></div>
+			</div>
+			</form></div>
+
+			
+				
+		        
+
+</div>
+</script>

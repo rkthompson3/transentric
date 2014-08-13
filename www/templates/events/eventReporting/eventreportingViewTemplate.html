@@ -1,0 +1,50 @@
+<script type="text/template" id="eventreport">
+<div data-role="content" id="content" data-theme="g" >
+			<p id="msg"></p>
+			<div>
+					<div class="left">Order Number :</div>
+				    <div class="right"><%=user.get('id')%></div>
+                    <ul data-role="listview" data-inset="true" data-theme="h" data-icon="false">
+	        		    <li id="currenteventname"><a style="text-align:center; font-size:10px;"><%=user.get("eventname")%></a></li>
+	                </ul> 
+			</div>
+			<%var obj=user.get('data').stops[user.get('subdata')];%>
+				<%if(obj.arrivalDateTime!=null || obj.departureDateTime!=null){%>
+				<div class="appointment">Appointment Date/Time: </div>
+				<div>
+					<div class="time-left">
+					<%if(obj.arrivalDateTime!=null){%>
+						<div align="center" class="timeDiv" ><%=obj.arrivalDateTime%><%}%></div></div> <img class="arrow" src="img/Arrow.png" />
+					<div class="time-right"><%if(obj.departureDateTime!=null){%>
+						<div align="center" class="timeDiv" ><%=obj.departureDateTime%><%}%></div></div>
+				</div>
+			<%}%>
+			<div>
+			<div class="report">Report: </div>
+    		<fieldset data-role="controlgroup" data-type="horizontal">
+    				<input type="radio" name="radio-choice" id="reportnow" value="ReportNow" checked="checked" />
+         			<label for="reportnow">NOW</label>
+
+         			<input type="radio" name="radio-choice" id="reportap" value="ReportatAppointment"  />
+         			<label for="reportap">AT APPOINTMENT</label>
+
+         			<input type="radio" name="radio-choice" id="reportat" value="Reportat"   />
+         			<label for="reportat">SCHEDULE</label>
+	
+   				 </fieldset>
+			</div>
+			<table id="calender" style="display:none">
+				<tr>
+				<td><input name="date" data-theme="h" id="date" placeholder="MM-DD-YYYY" type="date" data-role="datebox" class="ui-icon-datebox" data-options='{"mode": "datebox","useNewStyle":true, "useButton": false,"themeDefault":"g","themeHeader":"f","themeButton":"g","themeInput":"h"}'></td>
+				<td><input name="time" data-theme="h" id="time" type="date" placeholder="HH:MM" data-role="datebox" class="ui-icon-timebox" data-options='{"mode": "timebox","useNewStyle":true ,"useButton": false,"overrideTimeFormat": 24,"themeDefault":"g","themeHeader":"f","themeButton":"g","themeInput":"h"}'></td>
+				</tr>
+			</table>
+			<div align="center"><a id="reportaddinfo" class="actionbuttons btnSize" data-role="button"    >REPORT ADDITIONAL INFO</a></div>
+		    <div align="center"><a id="submitevent" class="actionbuttons btnSize actionBtn"  data-role="button"   >SUBMIT</a></div>
+			
+</div>
+</script>
+<script type="text/template" id="">
+
+</script>
+

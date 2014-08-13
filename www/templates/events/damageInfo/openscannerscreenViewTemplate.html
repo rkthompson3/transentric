@@ -1,0 +1,61 @@
+<script type="text/template" id="openscanner">
+<div data-role="header" id="header" >
+	    <a href="#" class="back headerButton" data-mini="true"  data-backbtn="false" >PREV</a>
+        <h1 id="headertext"></h1>
+        <a id="help" data-mini="true" class="headerButton" >Help</a>
+   
+</div>
+<div data-role="content" id="content">
+		<p id="msg"></p>
+		<%
+		var totalobj=user.get('data'); 
+		var subdata= user.get("subdata"),vinNum=[];
+		_.each(user.get("allreporteddamages"),function(val,index){
+			vinNum.push(user.get("allreporteddamages")[index].vinNumber);
+		 });
+		%>
+		<div align="center"><a id="openScanner"  class="actionBtn"  data-theme="g" data-role="button" data-inline="true" >Scan Now</a></div>
+		
+		<ul data-role="listview" data-inset="true" data-theme="h">
+			<li class="reports">Available
+				<div  class="fields" >
+					<select name="availablevin" id="availablevin" data-mini="true" data-theme="g">
+					<option value="">Select</option>
+					<%if(totalobj.references.length>0){%>
+					<%_.each(totalobj.references,function(val,index){
+					if(totalobj.references[index].referenceCode == "VT"){
+					 if (jQuery.inArray(totalobj.references[index].referenceValue, totalobj.stops[subdata].vins) ==-1 && jQuery.inArray(totalobj.references[index].referenceValue,vinNum) ==-1){%>
+					<option value="<%=totalobj.references[index].referenceValue%>" name="<%=totalobj.references[index].referenceValue%>"><%=totalobj.references[index].referenceValue%></option>
+					<%}}});%>
+					<%}%>
+					</select>
+				</div>
+			</li>
+		</ul>
+		
+		<div>
+		<p class="reports">Current VIN:</p>
+		<input type="text" id="currentvin" name="currentvin">
+		</div>
+		<p id="note">If you are unable to find the VIN then contact ShipCarsNow at 866-207-3360</p>
+		
+		<div align="center" >
+		<a id="nextBtn"    data-role="button" data-theme="g" data-mbc-theme="custom" data-inline="true" >Next</a>
+		<a id="cancelBtn"  data-role="button" data-theme="g" data-mbc-theme="custom" data-inline="true" >Clear</a>
+	    </div>
+	     
+	    <div data-role="popup" id="scannerhelptext"  class="ui-corner-all" data-transition="pop">
+				<a href="#" data-rel="back" data-role="button" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>			
+				  <h2 align="center" style="width: 93%; font-size:14px;">Help</h2>
+				  	 <div class="popupstyle">    
+            			Select the VIN that you want to complete the inspection report for.</br>  
+            			You can press the scan now button to scan the bar code of the VIN, or use the Select drop down to select the VINs that are available.</br>
+            			If the VIN isn't available then double check your Order # or call the company that you are carrying for to validate the information.</br>
+            			Press the Next button to continue.
+		           	 </div>
+				
+		</div>
+    </div>
+</script>
+<script type="text/template" id="">
+</script>

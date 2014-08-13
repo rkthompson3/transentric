@@ -1,0 +1,26 @@
+<script type="text/template" id="login">
+ <div data-role="content" >
+            <p id="msg"></p>
+            <label for="name">User ID:</label> <br/><input type="text" id="USER" name="USER"   autofocus autocorrect="off" autocapitalize="off">
+            <label for="password">Password:</label><br/>  <input  type="password"  id="PASSWORD"    name="PASSWORD" >
+            <div data-inline="true">
+                <div align="center"> <a id="btnSignin" data-role="button" data-transition="slide" data-inline="true" class="actionBtn btnwidth">Sign in</a><br></div>
+            </div>
+ </div>
+</script>
+<script type="text/template" id="forgotpwd">
+<div data-role="content" >
+			<div id="headers">
+ 				<h1 align="center">Event-Link</h1>
+				<h4 align="center">Request new Password</h4>
+			</div>
+            <div>
+            	 <label for="userid">User ID:</label><input type="text" id="uid" name="userid" autofocus autocorrect="off" autocapitalize="off">
+           		 <h4 align="center">Send new password to the following:</h4>
+				 <input type="radio" name="radio" id="tomobile" value="tomobile" /><div class="RadioTabs" >Mobile Text Msg</div>
+     			<input type="radio" name="radio" id="tomail" value="tomail"  /><div class="RadioTabs" >Email</div>
+				<div align="center"><a href="#login" id="btnCancel" data-role="button" data-transition="slide" data-inline="true" class="buttonColor">Cancel</a><a id="btnSubmit" data-role="button" data-transition="slide" data-inline="true" class="buttonColor">Submit</a></div>
+			</div>
+</div>
+</script>
+

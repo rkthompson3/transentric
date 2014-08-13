@@ -1,0 +1,109 @@
+<script type="text/template" id="signatureuploadtpl">
+<div data-role="content" id="content" >
+			<div>
+					<div class="left">Order Number :</div>
+				    <div class="right"><%=user.get('id')%></div>
+			</div>
+            <%   var totalobj=user.get('data');
+                 var subdata= user.get("subdata");
+				 var numberofStops = totalobj.stops.length;
+             %>
+            <div data-role="collapsible" data-theme="g" class="custom-collapsible" data-content-theme="a" data-collapsed-icon="arrow-d" data-iconpos="right" data-expanded-icon="arrow-u">
+		    <h2 style="font-weight:bold;">Order Summary</h2>
+			<ul data-role="listview" data-theme="h" data-icon="false">
+             <% if(numberofStops > 2){%>
+              <li  id="addedDetailsData" value='<%= subdata %>'><a >
+              <span id="sub">Stop: <%=totalobj.stops[subdata].stopSequence%></span>
+              <h4 id="split"><%if(totalobj.stops[subdata].address.contactInfo.name!=null){%><%=totalobj.stops[subdata].address.contactInfo.name%></br><%}%>
+              <%_.each(totalobj.stops[subdata].address,function(x,index1){%>
+                        <%if(totalobj.stops[subdata].address[index1]!=totalobj.stops[subdata].address.contactInfo && totalobj.stops[subdata].address[index1]!=null){%>
+					           <%if(index1=="city"){%>
+									<%=totalobj.stops[subdata].address[index1]%>,
+								<%}else if(index1=="state" || index1=="zip"){%>
+									<%=totalobj.stops[subdata].address[index1]%>
+								<%}else if(index1=="countryCode"){%>
+                                  <br><%=totalobj.stops[subdata].address[index1]%>
+								<%}else {%>
+                                  <%=totalobj.stops[subdata].address[index1]%><br>
+								<%}%>
+						 <%}%>		
+						<%});%>
+              </h4>
+             <%if(totalobj.stops[subdata].arrivarDateTime!=null || totalobj.stops[subdata].departureDateTime!=null ){%><span id="sub">Appointment:</span><span id="subdetails"><%=totalobj.stops[subdata].arrivalDateTime%> - <%=totalobj.stops[subdata].departureDateTime%></span></br><%}%>
+		     <span id="sub">Note:</span><span id="subdetails" ><%if(totalobj.stops[subdata].notes!=null){%><%=totalobj.stops[subdata].notes%><%}%></span></br>
+             </a></li>
+ 			 <%}else{%>	
+                 <%_.each(user.get('data').stops,function(val,index){%>
+             	       <li  id="addedDetailsData" value='<%= index %>'><a >
+             	       <span id="sub">Stop: <%=val.stopSequence%></span>
+					  	<h4 id="split"><%if(val.address.contactInfo.name!=null){%><%=val.address.contactInfo.name%></br><%}%>
+						<%_.each(val.address,function(x,index1){%>
+                        <%if(val.address[index1]!=val.address.contactInfo && val.address[index1]!=null){%>
+					           <%if(index1=="city"){%>
+									<%=val.address[index1]%>,
+								<%}else if(index1=="state" || index1=="zip"){%>
+									<%=val.address[index1]%>
+								<%}else if(index1=="countryCode"){%>
+                                  <br><%=val.address[index1]%>
+								<%}else {%>
+                                  <%=val.address[index1]%><br>
+								<%}%>
+						 <%}%>		
+						<%});%></h4>
+						<%if(val.arrivarDateTime!=null || val.departureDateTime!=null ){%><span id="sub">Appointment:</span><span id="subdetails"><%=val.arrivalDateTime%> - <%=val.departureDateTime%></span></br><%}%>
+						<span id="sub">Note:</span><span id="subdetails" ><%if(val.notes!=null){%><%=val.notes%><%}%></span></br>
+						
+             	     </a></li>
+             	<%});%>
+             <%}%>
+
+				<li data-icon="false"  >
+					<span id="sub" >Container :</span><span id="subdetails"><%if(totalobj.eqmtDetails.length>0){if(totalobj.eqmtDetails[0].eqmtInitial!= null && totalobj.eqmtDetails[0].eqmtNumber!= null){%><%=totalobj.eqmtDetails[0].eqmtInitial%> <%=totalobj.eqmtDetails[0].eqmtNumber%><%}}%></span></br></br>
+					<span id="sub" >Pickup Number:</span><span id="subdetails" ><%if(totalobj.references.length>0){%><%_.each(totalobj.references,function(x,index){%><%if(x.referenceCode =="P8"){%><%=x.referenceValue%><%}});}%></span></br></br>
+					<%if(totalobj.parties.length>0){%><%_.each(totalobj.parties,function(x,index){%><%if(x.partyIdentifier =="UC"){%><%if(x.city !=totalobj.stops[1].address.city){%><span id="sub">Ultimate Destination:</span><span id="subdetails" ><%=x.city%> , <%=x.state%><%}}});}%>
+					</span></br></br>
+				</li>
+           </ul>
+           </div>
+
+				<p id="msg"></p>
+				<ul data-role="listview" data-inset="true" data-theme="h">
+                <li class="reports" style="font-size:9pt;" value="pieces" >Pieces :<%if(totalobj.stops[subdata].pieces!=null){%><div style="margin-right:18px; font-size:9pt !important;" class="fields-vals" ><%=totalobj.stops[subdata].pieces%></div><%}%></li>
+			    <li class="reports" style="font-size:9pt;" value="weight">Weight :<%if(totalobj.stops[subdata].weight!=null){%><div style="margin-right:18px; font-size:9pt !important;" class="fields-vals" ><%=totalobj.stops[subdata].weight%></div><%}%></li>
+				<li ><a  class="seals" style="font-size:9pt;" value="seals">Seals :<%if(totalobj.eqmtDetails.length>0){%><div  style="margin-right:30px; font-size:9pt !important;" class="fields-vals ui-li-desc sealdata"><%=totalobj.eqmtDetails[0].sealNumbers%></div><%}%></a></li>
+				<li ><a class="notes" style="font-size:9pt;" value="notes">Comments :<div  class="fields-vals ui-li-desc notedata" style="margin-right:30px; font-size:9pt !important;"></div></a></li>
+				<li class="name" style="font-size:9pt;">Name(first,last):<div  class="fields" ><input  id="name"  style="font-size:9pt !important;" type="text" data-mini="true" data-theme="h"/></div></li>
+				</ul>
+				<h4>Signature:</h4>
+				<form method="POST">
+          				<div data-mbc-role="signature" id="signaturecontainer" name="signature" />
+       			 </form>
+					<div align="center">
+                    <a id="uploadBtn"  class="sig actionBtn" name="Vieworder"  data-theme="m" data-mbc-theme="custom" data-role="button" data-inline="true" >UPLOAD SIGNATURE</a>
+                    </div>
+
+               <div data-role="popup" id="popupSeals"  class="ui-corner-all" data-transition="pop">
+				<a href="#" data-rel="back" data-role="button"  data-icon="delete" data-iconpos="notext" class="ui-btn-right" >Close</a>			
+				<div style="padding:10px 20px;">
+				  <h1 align="center">SEALS</h1>
+		          <%if(totalobj.eqmtDetails.length>0){%>
+						<textarea rows="25" cols="50" id="aboutDescription" style="resize: none;" ><%=totalobj.eqmtDetails[0].sealNumbers%></textarea>
+                        <div align="center"><a id="closeseal"  class="actionbuttons btnSize actionBtn" data-role="button"   >OK</a></div>
+				  <%}else{%>
+				  		 <textarea rows="25" cols="50" id="popseal" style="height: 200px;" data-theme="h"></textarea>
+                         <div align="center"><a id="closeseal"  class="actionbuttons btnSize actionBtn" data-role="button"   >OK</a></div>
+	              <%}%>
+				</div>
+		    </div>
+			<div data-role="popup" id="popupNotes"  class="ui-corner-all" data-transition="pop">
+				<a href="#" data-rel="back" data-role="button"  data-icon="delete" data-iconpos="notext" class="ui-btn-right" >Close</a>			
+				<div style="padding:10px 20px;">
+				  <h1 align="center">Comments</h1>
+				   <textarea rows="25" cols="50" id="popnote" style="resize: none;" data-theme="h"></textarea>
+		           <div align="center"><a id="addnotes"  class="actionbuttons btnSize actionBtn" data-role="button"   >ADD COMMENTS</a></div>
+				</div>
+		    </div>
+ </div>
+</script>
+<script type="text/template" id="sigAddinfopage">
+</script>

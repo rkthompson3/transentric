@@ -1,0 +1,81 @@
+<script type="text/template" id="report">
+<div data-role="content" id="content" >
+			<p id="msg"></p>
+			<div>
+					<div class="left">Order Number :</div>
+				    <div class="right"><%=user.get('id')%></div>
+			</div>
+			<%var obj=user.get('data').stops[user.get('subdata')];%>
+				<%if(obj.arrivalDateTime!=null || obj.departureDateTime!=null){%>
+				<div  class="appointment">Appointment Date/Time: </div>
+				<div>
+					<div class="time-left">
+					<%if(obj.arrivalDateTime!=null){%>
+						<div align="center" class="timeDiv" ><%=obj.arrivalDateTime%><%}%></div></div> <img class="arrow" src="img/Arrow.png" />
+					<div class="time-right"><%if(obj.departureDateTime!=null){%>
+						<div align="center" class="timeDiv" ><%=obj.departureDateTime%><%}%></div></div>
+				</div>
+			<%}%>
+				<div>
+					<%var totalobj=user.get('data');%>
+					<%var obj=user.get('data').stops[user.get('subdata')];%>
+					<ul data-role="listview" data-inset="true" data-theme="h">
+					<li class="reports" value="container">Container #:<%if(totalobj.eqmtDetails.length>0){if(totalobj.eqmtDetails[0].eqmtInitial!= null && totalobj.eqmtDetails[0].eqmtNumber!= null){%><div  class="fields-vals" ><%=totalobj.eqmtDetails[0].eqmtInitial%> <%=totalobj.eqmtDetails[0].eqmtNumber%></div><%}else{%><div  class="fields" ><input  id="ordereqpnum" type="text" data-mini="true" data-theme="h"/></div><%}}else{%><div  class="fields" ><input  id="ordereqpnum" type="text" data-mini="true" data-theme="h"/></div><%}%></li>	
+					<li class="reports" value="bol">BOL #:
+					<%if(user.get('data').references.length>0){%>
+							<%var bolFlag=false%>
+							<%_.each(user.get('data').references,function(x,index){%>
+									<%if(x.referenceCode =="BM"){%>
+										<div  class="fields-vals" ><%=x.referenceValue%></div>
+										<%bolFlag=true%>
+									<%}});%>
+							<%if(bolFlag == false){%>
+							      <div  class="fields" ><input id="bol" type="text" data-mini="true" data-theme="h"/></div>
+						<%}%>
+					<%}else{%>
+							<div  class="fields" ><input id="bol" type="text" data-mini="true" data-theme="h"/></div>
+					<%}%>
+					</li>
+					<li class="reports" value="indicator">Load/Empty :
+					<div  class="fields" ><select name="loadIndicator" id="loadIndicator" data-mini="true" data-theme="g">
+							<option value="NA">NA</option>
+							<option value="L">L</option>
+							<option value="E">E</option>
+					</select></div>
+					</li>
+					<li class="reports" value="pieces" >Pieces :<%if(totalobj.stops[user.get('subdata')].pieces!=null){%><div  class="fields-vals" ><%=totalobj.stops[user.get('subdata')].pieces%></div><%}else{%><div  class="fields" ><input type="number" name="number" inputmode="numeric" pattern="[0-9]*" id="pieces"  data-mini="true" data-theme="h"></div><%}%></li>
+					<li class="reports" value="weight">Weight :<%if(totalobj.stops[user.get('subdata')].weight!=null){%><div  class="fields-vals" ><%=totalobj.stops[user.get('subdata')].weight%></div><%}else{%><div  class="fields"><input type="text" name="name" id="weight"  data-mini="true" data-theme="h"></div><%}%></li>
+					<li ><a  class="seals" value="seals">Seals :<%if(totalobj.eqmtDetails.length>0){%><div style="margin-right:30px;" class="fields-vals ui-li-desc sealdata"><%=totalobj.eqmtDetails[0].sealNumbers%></div><%}else{%><div style="margin-right:30px;" class="fields-vals ui-li-desc sealdata"></div><%}%></a></li>
+					<li ><a class="notes" value="notes">Notes :<div  style="margin-right:30px;" class="fields-vals ui-li-desc notedata" ></div></a></li>
+								
+					</ul>
+				</div>
+		    <div align="center"><a id="addinfoSubmit" class="actionbuttons btnSize actionBtn" data-role="button" >SUBMIT</a></div>
+
+			<div data-role="popup" id="popupSeals"  class="ui-corner-all" data-transition="pop">
+				<a href="#" data-rel="back" data-role="button"  data-icon="delete" data-iconpos="notext" class="ui-btn-right" >Close</a>			
+				<div style="padding:10px 20px;">
+				  <h1 align="center">SEALS</h1>
+		          <%if(totalobj.eqmtDetails.length>0){%>
+						<textarea rows="25" cols="50" id="aboutDescription" style="resize: none;" ><%=totalobj.eqmtDetails[0].sealNumbers%></textarea>
+						<input name="seal" type="text" id="popseal" value=""  data-theme="h" />
+				  <%}else{%>
+				  		 <textarea rows="25" cols="50" id="popseal" style="height: 200px;" data-theme="h"></textarea>
+	              <%}%>
+				   <div align="center"><a id="addseal"  class="actionbuttons btnSize actionBtn" data-role="button"   >ADD SEAL</a></div>
+				</div>
+		   </div>
+			<div data-role="popup" id="popupNotes"  class="ui-corner-all" data-transition="pop">
+				<a href="#" data-rel="back" data-role="button"  data-icon="delete" data-iconpos="notext" class="ui-btn-right" >Close</a>			
+				<div style="padding:10px 20px;">
+				  <h1 align="center">NOTES</h1>
+				   <textarea rows="25" cols="50" id="popnote" style="resize: none;" data-theme="h"></textarea>
+		           <div align="center"><a id="addnotes"  class="actionbuttons btnSize actionBtn" data-role="button"   >ADD NOTE</a></div>
+				</div>
+		   </div>
+			
+</div>
+</script>
+<script type="text/template" id="notes">
+</script>
+

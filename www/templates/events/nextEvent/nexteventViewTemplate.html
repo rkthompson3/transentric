@@ -1,0 +1,117 @@
+<script type="text/template" id="nextevent">
+<div data-role="content" id="content" >
+             <p id="msg"></p>
+					<div class="left">Order Number :</div>
+				    <div class="right">
+                    <%=user.get('id')%></div>
+                 <% var subdata=user.get("subdata"); %>  
+                <ul data-role="listview" data-inset="true" data-theme="h" data-icon="false">
+        		    <li id="currentStopsequence"><a style="text-align:center; font-size:10px;">
+        		    Stop <%=user.get("subdata")+1%> : <%=user.get('data').stops[subdata].address.entityName%>
+                 	</a></li>
+                </ul>   
+              <!--  <%var obj=user.get('data').stops[user.get('subdata')];%>
+    				<%if(obj.arrivalDateTime!=null || obj.departureDateTime!=null){%>
+    				<div class="appointment">Appointment Date/Time: </div>
+    				<div>
+    					<div class="time-left">
+    					<%if(obj.arrivalDateTime!=null){%>
+    						<div align="center" class="timeDiv" ><%=obj.arrivalDateTime%><%}%></div></div> <img class="arrow" src="img/Arrow.png" />
+    					<div class="time-right"><%if(obj.departureDateTime!=null){%>
+    						<div align="center" class="timeDiv" ><%=obj.departureDateTime%><%}%></div></div>
+    				</div>
+    			<%}%> -->
+                
+    		<%
+    			var workflowarr=[],workflowdtl=[],workflowdamagearray=[];
+    	    	workflowarr=user.get("workflowinfo");
+                var firstRequiredEvent;
+                var workflowDetailType=null;
+                var documentcount;
+                var data= user.get("data");
+    			var subdata= user.get("subdata");
+    			var GetstopReason =user.get("stopReason");
+    			var orderid =user.get('data').orderId;
+    		    var stopId=data.stops[subdata].stopId;
+	 
+    		    for (var i in workflowarr){
+    		    if(workflowarr[i].workflowType.name == "Order in the System"){
+    		    workflowdtl=workflowarr[i].details;
+    		    }else if(workflowarr[i].workflowType.name == "Damage/Delay"){
+                workflowdamagearray=workflowarr[i].details;
+                }}
+                var Raisedeventcode=[];
+    			    if(data.raisedEvents !== null || data.raisedEvents.length > 0 ){
+    			    for(var i=0;i<data.raisedEvents.length;i++){
+    			       if(data.raisedEvents[i].stopId == stopId && data.raisedEvents[i].orderId == orderid){	
+    				   var eventcode=data.raisedEvents[i].eventCode;
+    				   Raisedeventcode.push(eventcode);
+    			       }
+    			   }
+    		     }
+            %>
+
+          <ul data-role="listview" data-inset="true" id="requiredListview" data-theme="h">
+			<%
+			for (var i in workflowarr){
+            if(workflowarr[i].workflowType.name == "Order in the System"){
+			_.each(workflowarr[i].details,function(val,index){if(val.required === true){%>
+			<%
+			var str=val.stopType.codes + '';
+			if(val.required === true && val.eventDetail !== null && val.workflowDetailType == "EVENT" && jQuery.inArray(GetstopReason, str.replace(/,\s+/g, ',').split(',')) != -1){%>
+			<li  id="requiredEvents" value='<%= index %>' class="ui-disabled"><a >
+			<img src="img/raiseevent.png"  class="ui-li-icon"><span style="margin-left:20px; margin-top:5px;" id="subdetailslist" class="Event<%=val.eventDetail.eventCode%> GetEventName"><%=val.eventDetail.name%></span><span style="color:red; font-size:20px;">*</span>
+			<span><img src="img/Tick.png" width="16px" height="16px" style="float:right; display:none; margin-right:20px; margin-top:5px;" class="Tick<%=val.eventDetail.eventCode%>"/></span>
+			<span id="sub" style="display:none">Event Type:</span><span style="display:none" id="subdetailslist" class="GetEventType" ><%if(val.required === true) {%><%=val.workflowDetailType%><%}%></span>
+			<span id="sub" style="display:none">Event Code:</span><span  style="display:none" id="subdetailslist" class="GetEventCode" ><%if(val.required === true && val.workflowDetailType == "EVENT"){%><%=val.eventDetail.eventCode%><%}%></span>
+            <span  style="display:none" class="GetEventId"><%if(val.workflowDetailType == "EVENT"){%><%=val.eventDetail.id%><%}%></span>
+   	    </a></li>
+			<%}
+			else if(val.required === true && val.eventDetail === null && val.workflowDetailType == "DOCUMENT" && jQuery.inArray(GetstopReason, str.replace(/,\s+/g, ',').split(',')) != -1){%>
+			<li  id="requiredEvents" value='<%= index %>' class="ui-disabled"><a >
+			<img src="img/upload.png"  class="ui-li-icon"><span id="subdetailslist" style="margin-left:20px; margin-top:5px;">Upload Documents(</span><span id="subdetailslist" style="margin-top:5px;" class="GetEventName"><%=val.documentDetail.documentType.name%></span><span id="subdetailslist" style="margin-top:5px;">)</span><span style="color:red; font-size:20px;">*</span>
+			<span><img src="img/Tick.png" width="16px" height="16px" style="float:right; display:none; margin-right:20px; margin-top:5px;" class="Tick<%=val.documentDetail.documentType.id%>"/></span>
+			<span id="sub" style="display:none">Event Type:</span><span id="subdetailslist" style="display:none" class="GetEventType" ><%if(val.required === true) {%><%=val.workflowDetailType%><%}%></span>
+			<span id="subdetailslist" class="GetDoccount" style="display:none"><%if(val.required === true && val.workflowDetailType == "DOCUMENT") {%><%=val.documentDetail.count%><%}%></span>
+			<span id="subdetailslist" class="GetDocId" style="display:none"><%if(val.required === true && val.workflowDetailType == "DOCUMENT") {%><%=val.documentDetail.documentType.id%><%}%></span>
+   	    </a></li>
+			<%}
+			else if(val.required === true && val.eventDetail === null && val.workflowDetailType == "SIGNATURE" && jQuery.inArray(GetstopReason, str.replace(/,\s+/g, ',').split(',')) != -1){%>
+			<li  id="requiredEvents" value='<%= index %>' class="ui-disabled"><a>
+			<img src="img/signature.png"  class="ui-li-icon"><span id="subdetailslist" style="margin-left:20px; margin-top:5px;" > Take Signature</span><span style="color:red; font-size:20px;">*</span>
+			<span><img src="img/Tick.png" width="16px" height="16px" style="float:right; display:none; margin-right:20px; margin-top:5px;" class="Tick0"/></span>
+			<span id="sub" style="display:none">Event Type:</span><span id="subdetailslist" class="GetEventType" style="display:none" ><%if(val.required === true) {%><%=val.workflowDetailType%><%}%></span>
+   	    </a></li>
+			<%}
+			else if(val.eventDetail === null && val.workflowDetailType == "INSPECTION" && jQuery.inArray(GetstopReason, str.replace(/,\s+/g, ',').split(',')) != -1){%>
+			<li  id="requiredEvents" value='<%= index %>' class="ui-disabled"><a>
+			<img src="img/carinspec.png"  class="ui-li-icon"><span id="subdetailslist" style="margin-left:20px; margin-top:5px;" >Vehicle Inspections</span><%if(val.required == true){%><span style="color:red; font-size:20px;">*</span><%}%>
+			<span><img src="img/Tick.png" width="16px" height="16px" style="float:right; display:none; margin-right:20px; margin-top:5px;" class="TickInspection"/></span>
+			<span id="sub" style="display:none">Event Type:</span><span id="subdetailslist" class="GetEventType" style="display:none" ><%=val.workflowDetailType%></span>
+	        </a></li>
+			<%}
+			%>
+   	   <%}});
+		}}	
+	%> 
+   	   </ul> 
+   	
+		<ul data-role="listview" data-inset="true" data-theme="h">
+               <% for (var i in workflowdtl){
+            	   var str=workflowdtl[i].stopType.codes + '';
+                   if(workflowdtl[i].required===false && jQuery.inArray(GetstopReason, str.replace(/,\s+/g, ',').split(',')) != -1){%>
+                   <li id="viewSelectEvent"><a><img src="img/otherreporting.png"  class="ui-li-icon"><span style="margin-left:20px;" >Other Reporting<span></a></li>
+               <% break;}}%>
+               
+               <% for (var i in workflowdamagearray){
+                  var str=workflowdamagearray[i].stopType.codes + ''; 
+                if(jQuery.inArray(GetstopReason, str.replace(/,\s+/g, ',').split(',')) != -1 ){%>
+               <li id="reportdamagedelay"><a><img src="img/damagedelay.png"  class="ui-li-icon"><span style="margin-left:20px;" >Report Damage or Delay<span></a></li>
+               <% break;}}%>
+               <!--<li id="viewOrderSummary"><a>View Order Information</a></li> -->
+         </ul>
+ </div>
+</script>
+<script type="text/template" id="details">
+
+</script>

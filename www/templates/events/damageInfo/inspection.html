@@ -1,0 +1,48 @@
+<script type="text/template" id="inspection">
+<div data-role="header" id="header" >
+	    <!--<a class="backtoDamage headerButton" data-mini="true"  data-backbtn="false" >PREV</a>-->
+        <h1 id="headertext"></h1>
+       <a id="help" data-mini="true" class="headerButton ui-btn-right" >Help</a>
+   
+</div>
+<div data-role="content" id="content" >
+	<p id="msg"></p>
+	
+	<figure>
+		 <div class="container imageClick">
+         <center><img class="default"  id="camera_ins_image" src="" name="camera_ins_image"></center>
+		 </div>
+         <figcaption id="CurrentdamagePage" class="figcationCss">Dash</figcaption>
+    </figure>
+
+	<div>
+		<ul data-role="listview" data-inset="true" data-theme="h">
+			<li class="reports" value="indicator">Odometer*
+				<div  class="fields" >
+					<input type="text" name="odometer" id="odometer" data-mini="true" data-theme="g">
+				</div>
+			</li>
+		</ul>
+	</div>
+	<textarea name="textarea" id="dashOtherInfo" placeholder="Other Information" rows="5" cols="60" style="resize: none;height: 50px; max-height: 50px;" data-theme="g"></textarea>
+	<div align="center" >
+		<a id="send"    data-role="button" data-theme="g" data-mbc-theme="custom" data-inline="true" data-mini="ture" >Send</a>
+		<a id="next"    data-role="button" data-theme="g" data-mbc-theme="custom" data-inline="true" data-mini="ture" >Next</a>
+		<a id="cancel"    data-role="button" data-theme="g" data-mbc-theme="custom" data-inline="true" data-mini="ture" >Cancel</a>
+	</div>
+	
+	<div data-role="popup" id="scannerhelptext"  class="ui-corner-all" data-transition="pop">
+				<a href="#" data-rel="back" data-role="button" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>			
+				  <h2 align="center" style="width: 93%; font-size:14px;">Help</h2>
+				  	 <div class="popupstyle">    
+            			Photograph the odometer reading of the vehicle.</br>
+            			Press the Next button to continue.
+		           	 </div>
+				
+    </div>
+</div>
+</script>
+<script type="text/template" id="details">
+   
+</script>
+

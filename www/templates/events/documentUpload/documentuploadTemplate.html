@@ -1,0 +1,26 @@
+<script type="text/template" id="documentupload65765756">
+<div data-role="content" id="content">
+		<label for="status">Status :</label><span id="camera_status"></span><br>
+        <label for="image">Image :</label><img style="width:150px;display:none;" id="camera_image" src="" /><br/>
+		<label for="dtype">Document Type:</label> <br/><input type="text" name="doctype" id="doctype" data-theme="h" placeholder="Document Type"/>
+		<div align="center">
+					<a id="takePicture"  class="btnwidth"  data-role="button" data-theme="g" data-mbc-theme="custom" data-inline="true" >Take Picture</a>
+					<a id="selectPicture"   class="btnwidth" data-role="button" data-theme="g" data-mbc-theme="custom" data-inline="true" >Select Picture</a>
+					<a id="uploadPicture"   class="btnwidth" data-role="button" data-theme="g" data-mbc-theme="custom" data-inline="true" >Upload Picture</a>		
+		</div>
+    </div>
+</script>
+<script type="text/template" id="documentupload">
+<div data-role="content" id="content">
+	<p id="msg"></p>
+				<div>
+					<div class="left">Order Number :</div>
+				    <div class="right"><%=user.get('id')%></div>
+				</div>
+		    	<ul data-role="listview" data-inset="true" data-theme="h">
+					<li ><a  class="docType submitallPhotosDoctype" value="<%=localStorage.eventName%>"><%=localStorage.eventName%> (<span id="<%=localStorage.eventName%>">0</span> of <%=localStorage.doccount%> photos)</a></li>
+				</ul>
+<div align="center"><a id="submitallPhotos" class="actionbuttons btnSize actionBtn" data-role="button" >SUBMIT</a></div>
+<div id="status"></div>
+</div>
+</script>

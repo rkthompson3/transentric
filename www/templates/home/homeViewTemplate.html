@@ -1,0 +1,56 @@
+<script type="text/template" id="homepage">
+<div data-role="content">
+					<div id="logo" class="logomargin">
+		 			
+					</div>
+         			<p id="msg"></p>
+					<div id="main-content"></div>
+		   <div data-role="popup" id="popupStops"  class="ui-corner-all" data-transition="pop">
+				<a href="#" data-rel="back" data-role="button" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>			
+				  <h2 align="center" style="width: 93%;">Stops</h2>
+				  	 <div id="stopslist">    
+            			<ul data-role="listview" data-inset="true" data-theme="h">
+			            </ul>
+		           	 </div>
+				
+		   </div>
+
+          <div data-role="popup" id="popupOrders"  class="ui-corner-all" data-transition="pop">
+				<a href="#" data-rel="back" data-role="button" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>			
+				  <h1 align="center" style="width: 93%;">Matched Orders</h1>
+				  	 <div id="orderList">    
+            			<ul data-role="listview" data-inset="true" data-theme="h" >
+			            </ul>
+		           	 </div>
+				
+		   </div>
+
+           <div data-role="popup" id="popupAllOrders"  class="ui-corner-all" data-transition="pop">
+				<a href="#" data-rel="back" data-role="button" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>			
+				  <h2 align="center" style="width: 93%;">Order Numbers</h2>
+				  	 <div id="CompleteorderList">    
+            			<ul data-role="listview" data-inset="true" data-theme="h" >
+			            </ul>
+		           	 </div>
+				
+		   </div>
+
+          <div id="unauthorisedMessage" style="display:none">
+             <div style="text-align:center; color:#293754; font-weight:bold;">Attention.</div>
+             <div style="margin:5px 20px; border:2px solid #293754; padding:10px; background-color:#ffffff;font-size:12px; font-family:Lucida Console;">
+             Thank you for logging into Transentric's EventManager mobile application.This application is designed to help truck and dray drivers report their movements-simply and timely.
+             If you are intrested in finding out more information about how this might help you then please leave a message for us at <b style="color:#293754">1-800-877-0328</b>,<br>option O.
+             </div>
+          </div>
+</div>
+</script>
+<script type="text/template" id="homepage-content">
+					<%var searchValue=user.get("order");%>
+					<div align="center" id="searchDiv"><input type="search" name="search" id="search" data-theme="h" placeholder="Order Number" value='<%= searchValue %>'/></div>				
+					<div align="center"><a id="btnVieworder"  class="ordervent actionBtn" name="Vieworder"  data-theme="g" data-mbc-theme="custom" data-role="button" data-inline="true" >VIEW ORDER</a></div>
+        			<div align="center"><a id="btnreportevent" class="ordervent " name="Reportevent"  data-theme="g"  data-mbc-theme="custom" data-role="button" data-inline="true" >REPORT EVENT</a></div>  
+					<div align="center"><a id="btnMyinfo"   name="btnMyinfo"    data-role="button" data-theme="g" data-mbc-theme="custom" data-inline="true" >MY INFO</a></div>
+				<!--	<div align="center"><a id="signatureBtn"   class="ordervent" name="sign" data-theme="g" data-mbc-theme="custom" data-role="button" data-inline="true"  >SIGNATURE</a></div>  -->
+					
+</script>
+

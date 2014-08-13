@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="com.transentric.aem" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>AgilinkEventManager</name>
+    <description>
+        Agilink Event Manager is a shipment notification that works in combination with your
+        tracking solution and captures shipping and event information in real-time. Status’ can
+        be delivered via email or EDI or accessed through the Internet. Transentric provides a
+        framework for dispatchers, drivers and transportation providers to give visibility of the
+        shipment status to their customers based upon movement activity. EventManager can
+        help eliminate the question "where is my shipment?"
+    </description>
+    <author email="support@transentric.com" href="http://www.transentric.com/EventManager.html">
+        Agilink EventManager
+    </author>
+    <content src="index.html" />
+    <access origin="*" />
+    <preference name="fullscreen" value="true" />
+    <preference name="webviewbounce" value="true" />
+</widget>
